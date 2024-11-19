@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Air Quality Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Admin</h2>
+    <ul>
+      <li onclick="showSection('dashboard')">Dashboard</li>
+      <li onclick="showSection('line-chart')">Line Chart</li>
+      <li onclick="showSection('bar-chart')">Bar Chart</li>
+      <li onclick="showSection('doughnut-chart')">Doughnut Chart</li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <section id="dashboard" class="section active">
+      <h1>Air Quality Monitoring Dashboard</h1>
+      <div class="cards">
+        <div class="card">Temperature (°C): <span id="temperature">N/A</span></div>
+        <div class="card">Humidity (%): <span id="humidity">N/A</span></div>
+        <div class="card">PM2.5 (µg/m³): <span id="pm2_5">N/A</span></div>
+        <div class="card">PM10 (µg/m³): <span id="pm10">N/A</span></div>
+        <div class="card">NOx (ppb): N/A</div>
+        <div class="card">NH3 (ppb): N/A</div>
+        <div class="card">CO2 (ppm): N/A</div>
+        <div class="card">SO2 (ppb): N/A</div>
+        <div class="card">VOC (ppb): N/A</div>
+      </div>
+    </section>
+
+    <section id="line-chart" class="section hidden">
+      <h1>Line Chart: Temperature and Humidity Trends</h1>
+      <canvas id="lineChart" width="400" height="200"></canvas>
+    </section>
+
+    <section id="bar-chart" class="section hidden">
+      <h1>Bar Chart: Pollutant Levels</h1>
+      <canvas id="barChart" width="400" height="200"></canvas>
+    </section>
+
+    <section id="doughnut-chart" class="section hidden">
+      <h1>Doughnut Chart: Pollutant Distribution</h1>
+      <canvas id="doughnutChart" width="400" height="200"></canvas>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
