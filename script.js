@@ -1,84 +1,152 @@
-const iqAirAPIKey = '693fca49-1546-4984-addf-44e9e9b691b8';
+const waqiApiKey = "a64019cb8a03f619fa719ad51f63bd08abd50747";
 
-async function fetchData() {
-  const response = await fetch(`https://api.airvisual.com/v2/nearest_city?key=${iqAirAPIKey}`);
-  const data = await response.json();
-  if (data.status === "success") {
-    document.getElementById('temperature').textContent = data.data.current.weather.tp;
-    document.getElementById('humidity').textContent = data.data.current.weather.hu;
-    document.getElementById('pm2_5').textContent = data.data.current.pollution.aqius;
-    document.getElementById('pm10').textContent = data.data.current.pollution.aqicn;
-  }
+async function fetchWAQIDataForCountry() {
+    const selectedValue = document.getElementById("countrySelector").value;
+    await fetchWAQIData(selectedValue);
 }
 
-function generateHistoricalData() {
-  return {
-    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    temperature: [11.5, 10.3, 13.7, 18.2, 22.5, 25.1, 28.0, 27.5, 24.3, 18.9, 13.6, 9.7],
-    humidity: [60, 65, 63, 58, 55, 53, 52, 51, 54, 58, 62, 65],
-    pm2_5: [24, 28, 22, 20, 18, 15, 14, 16, 19, 23, 25, 27],
-    pm10: [14, 16, 12, 11, 10, 8, 7, 9, 10, 12, 15, 16],
-  };
+async function fetchWAQIData(location = "geo:48.8534;2.3488") {
+    try {
+        const response = await fetch(
+            `https://api.waqi.info/feed/${location}/?token=${waqiApiKey}`
+        );
+        const data = await response.json();
+
+        if (data.status === "ok") {
+            const iaqi = data.data.iaqi;
+
+            // Update Dashboard
+            document.getElementById("temperature").textContent = iaqi.t ? iaqi.t.v : "N/A";
+            document.getElementById("humidity").textContent = iaqi.h ? iaqi.h.v : "N/A";
+            document.getElementById("pm25").textContent = iaqi.pm25 ? iaqi.pm25.v : "N/A";
+            document.getElementById("pm10").textContent = iaqi.pm10 ? iaqi.pm10.v : "N/A";
+            document.getElementById("co").textContent = iaqi.co ? iaqi.co.v : "N/A";
+            document.getElementById("no2").textContent = iaqi.no2 ? iaqi.no2.v : "N/A";
+            document.getElementById("ozone").textContent = iaqi.o3 ? iaqi.o3.v : "N/A";
+            document.getElementById("so2").textContent = iaqi.so2 ? iaqi.so2.v : "N/A";
+
+            // Generate Charts
+            generateLineChart(iaqi);
+            generateBarChart(iaqi);
+            generateDoughnutChart(iaqi);
+        } else {
+            console.error("Failed to fetch WAQI data.");
+        }
+    } catch (error) {
+        console.error("Error fetching WAQI data:", error);
+    }
 }
 
-function renderCharts() {
-  const historicalData = generateHistoricalData();
-
-  new Chart(document.getElementById('lineChart'), {
-    type: 'line',
-    data: {
-      labels: historicalData.months,
-      datasets: [
-        {
-          label: 'Temperature (°C)',
-          data: historicalData.temperature,
-          borderColor: 'blue',
-          fill: false
+function generateLineChart(iaqi) {
+    const ctx = document.getElementById("lineChart").getContext("2d");
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: ["PM2.5", "PM10", "CO", "NO2", "Ozone", "SO2"],
+            datasets: [
+                {
+                    label: "PM2.5",
+                    data: [iaqi.pm25?.v || 0],
+                    borderColor: "red",
+                },
+                {
+                    label: "PM10",
+                    data: [iaqi.pm10?.v || 0],
+                    borderColor: "blue",
+                },
+                {
+                    label: "CO",
+                    data: [iaqi.co?.v || 0],
+                    borderColor: "green",
+                },
+                {
+                    label: "NO2",
+                    data: [iaqi.no2?.v || 0],
+                    borderColor: "orange",
+                },
+                {
+                    label: "Ozone",
+                    data: [iaqi.o3?.v || 0],
+                    borderColor: "purple",
+                },
+                {
+                    label: "SO2",
+                    data: [iaqi.so2?.v || 0],
+                    borderColor: "pink",
+                },
+            ],
         },
-        {
-          label: 'Humidity (%)',
-          data: historicalData.humidity,
-          borderColor: 'green',
-          fill: false
-        }
-      ]
-    }
-  });
+    });
+}
 
-  new Chart(document.getElementById('barChart'), {
-    type: 'bar',
-    data: {
-      labels: ['PM2.5', 'PM10'],
-      datasets: [
-        {
-          label: 'Pollutant Levels (µg/m³)',
-          data: [historicalData.pm2_5[11], historicalData.pm10[11]],
-          backgroundColor: ['red', 'blue']
-        }
-      ]
-    }
-  });
+function generateBarChart(iaqi) {
+    const ctx = document.getElementById("barChart").getContext("2d");
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["PM2.5", "PM10", "CO", "NO2", "Ozone", "SO2"],
+            datasets: [
+                {
+                    label: "Pollutant Levels",
+                    data: [
+                        iaqi.pm25?.v || 0,
+                        iaqi.pm10?.v || 0,
+                        iaqi.co?.v || 0,
+                        iaqi.no2?.v || 0,
+                        iaqi.o3?.v || 0,
+                        iaqi.so2?.v || 0,
+                    ],
+                    backgroundColor: [
+                        "red",
+                        "blue",
+                        "green",
+                        "orange",
+                        "purple",
+                        "pink",
+                    ],
+                },
+            ],
+        },
+    });
+}
 
-  new Chart(document.getElementById('doughnutChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['PM2.5', 'PM10'],
-      datasets: [
-        {
-          data: [historicalData.pm2_5[11], historicalData.pm10[11]],
-          backgroundColor: ['red', 'blue']
-        }
-      ]
-    }
-  });
+function generateDoughnutChart(iaqi) {
+    const ctx = document.getElementById("doughnutChart").getContext("2d");
+    new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["PM2.5", "PM10", "CO", "NO2", "Ozone", "SO2"],
+            datasets: [
+                {
+                    data: [
+                        iaqi.pm25?.v || 0,
+                        iaqi.pm10?.v || 0,
+                        iaqi.co?.v || 0,
+                        iaqi.no2?.v || 0,
+                        iaqi.o3?.v || 0,
+                        iaqi.so2?.v || 0,
+                    ],
+                    backgroundColor: [
+                        "red",
+                        "blue",
+                        "green",
+                        "orange",
+                        "purple",
+                        "pink",
+                    ],
+                },
+            ],
+        },
+    });
 }
 
 function showSection(sectionId) {
-  document.querySelectorAll('.section').forEach((section) => {
-    section.classList.remove('active');
-  });
-  document.getElementById(sectionId).classList.add('active');
+    document.querySelectorAll(".section").forEach((section) => {
+        section.classList.remove("active");
+    });
+    document.getElementById(sectionId).classList.add("active");
 }
 
-fetchData();
-renderCharts();
+// Initialize the dashboard
+fetchWAQIData();
+
