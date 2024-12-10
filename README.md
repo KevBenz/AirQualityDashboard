@@ -6,24 +6,24 @@ ________________________________________
 Features
 Core Functionalities
 1.	Real-Time Data:
-o	Displays pollutant levels and environmental metrics for selected cities:
-	Pollutants: PM2.5, PM10, CO, NO2, Ozone (O3), SO2.
-	Environmental Metrics: Temperature (°C), Humidity (%).
-2.	Interactive Charts:
-o	Line Chart: Visualizes pollutant trends over time using monthly data for 2024.
-o	Bar Chart: Compares average pollutant levels for a selected city.
-o	Doughnut Chart: Highlights pollutant distribution for the selected city.
-3.	Dynamic City Selection:
-o	Users can switch between cities via a dropdown menu to view real-time data and historical trends seamlessly.
+Displays pollutant levels and environmental metrics for selected cities:
+Pollutants: PM2.5, PM10, CO, NO2, Ozone (O3), SO2.
+Environmental Metrics: Temperature (°C), Humidity (%).
+3.	Interactive Charts:
+Line Chart: Visualizes pollutant trends over time using monthly data for 2024.
+Bar Chart: Compares average pollutant levels for a selected city.
+Doughnut Chart: Highlights pollutant distribution for the selected city.
+4.  Dynamic City Selection:
+Users can switch between cities via a dropdown menu to view real-time data and historical trends seamlessly.
 ________________________________________
 Data Sources
 1.	WAQI API:
-o	Provides real-time air quality and environmental data.
-o	Limitations: Does not support historical data beyond a few days and enforces rate limits.
+Provides real-time air quality and environmental data.
+Limitations: Does not support historical data beyond a few days and enforces rate limits.
 2.	Manually Compiled Data:
-o	Historical data for 2024 was created manually by:
-	Extracting one data point per month for each pollutant and city.
-	Calculating averages for pollutant levels to populate bar and doughnut charts.
+Historical data for 2024 was created manually by:
+Extracting one data point per month for each pollutant and city.
+Calculating averages for pollutant levels to populate bar and doughnut charts.
 ________________________________________
 Tools and Technologies
 Frontend Development
