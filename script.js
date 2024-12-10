@@ -229,7 +229,24 @@ const cityData = {
     },
 };
 
+const waqiApiKey = "a64019cb8a03f619fa719ad51f63bd08abd50747";
+
 let lineChart, barChart, doughnutChart;
+
+const cityLocations = {
+    SEOUL: "geo:37.5665;126.9780",
+    BUSAN: "geo:35.1796;129.0756",
+    PARIS: "geo:48.8566;2.3522",
+    LONDON: "geo:51.5074;-0.1278",
+    SHANGHAI: "geo:31.2304;121.4737",
+    MADRID: "geo:40.4168;-3.7038",
+    BERLIN: "geo:52.5200;13.4050",
+    KYOTO: "geo:35.0116;135.7681",
+    OSAKA: "geo:34.6937;135.5023",
+    LOS_ANGELES: "geo:34.0522;-118.2437",
+    MEXICO_CITY: "geo:19.4326;-99.1332",
+    TOKYO: "geo:35.6895;139.6917",
+};
 
 function showSection(sectionId) {
     document.querySelectorAll(".section").forEach((section) => {
@@ -238,22 +255,42 @@ function showSection(sectionId) {
     document.getElementById(sectionId).classList.add("active");
 }
 
-function updateDashboardData() {
-    const city = document.getElementById("countrySelector").value;
-    const data = cityData[city];
-    if (!data) {
-        console.error("No data found for selected city:", city);
+async function fetchWAQIData(city) {
+    const location = cityLocations[city];
+    if (!location) {
+        console.error("Invalid city selected:", city);
         return;
     }
 
-    document.getElementById("temperature").textContent = data.temperature || "N/A";
-    document.getElementById("humidity").textContent = data.humidity || "N/A";
-    document.getElementById("pm25").textContent = data.barChart.pm25 || "N/A";
-    document.getElementById("pm10").textContent = data.barChart.pm10 || "N/A";
-    document.getElementById("co").textContent = data.barChart.co || "N/A";
-    document.getElementById("no2").textContent = data.barChart.no2 || "N/A";
-    document.getElementById("ozone").textContent = data.barChart.o3 || "N/A";
-    document.getElementById("so2").textContent = data.barChart.so2 || "N/A";
+    try {
+        const response = await fetch(
+            `https://api.waqi.info/feed/${location}/?token=${waqiApiKey}`
+        );
+        const data = await response.json();
+
+        if (data.status === "ok") {
+            const iaqi = data.data.iaqi;
+
+            // Mise à jour du tableau de bord
+            document.getElementById("temperature").textContent = iaqi.t ? iaqi.t.v : "N/A";
+            document.getElementById("humidity").textContent = iaqi.h ? iaqi.h.v : "N/A";
+            document.getElementById("pm25").textContent = iaqi.pm25 ? iaqi.pm25.v : "N/A";
+            document.getElementById("pm10").textContent = iaqi.pm10 ? iaqi.pm10.v : "N/A";
+            document.getElementById("co").textContent = iaqi.co ? iaqi.co.v : "N/A";
+            document.getElementById("no2").textContent = iaqi.no2 ? iaqi.no2.v : "N/A";
+            document.getElementById("ozone").textContent = iaqi.o3 ? iaqi.o3.v : "N/A";
+            document.getElementById("so2").textContent = iaqi.so2 ? iaqi.so2.v : "N/A";
+
+            // Mise à jour des graphiques
+            updateLineChart(city);
+            updateBarChart(city);
+            updateDoughnutChart(city);
+        } else {
+            console.error("Failed to fetch WAQI data.");
+        }
+    } catch (error) {
+        console.error("Error fetching WAQI data:", error);
+    }
 }
 
 function updateLineChart() {
@@ -364,10 +401,14 @@ function updateDoughnutChart() {
         },
     });
 }
+document.getElementById("countrySelector").addEventListener("change", (event) => {
+    const selectedCity = event.target.value;
+    fetchWAQIData(selectedCity);
+});
 
 document.addEventListener("DOMContentLoaded", () => {
-    updateDashboardData();
-    updateLineChart();
-    updateBarChart();
-    updateDoughnutChart();
+    fetchWAQIData("PARIS"); // Default city
+    updateLineChart("PARIS");
+    updateBarChart("PARIS");
+    updateDoughnutChart("PARIS");
 });
