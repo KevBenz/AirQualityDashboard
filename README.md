@@ -28,6 +28,7 @@ ________________________________________
 Tools and Technologies
 Frontend Development
 •	HTML: Used to define the structure of the web pages.
+
 •	CSS: Applied for styling and layout of the dashboard.
 •	JavaScript: Enabled dynamic behavior, real-time data fetching, and chart rendering.
 •	Chart.js: A library for creating interactive and visually appealing charts.
