@@ -6,11 +6,16 @@
     <title>Air Quality Monitoring Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
+    <header>
+        <h1>Air Quality Monitoring Dashboard</h1>
+        <p>Monitor and analyze air quality data across various cities.</p>
+    </header>
     <div class="container">
         <aside class="sidebar">
-            <h2>Admin</h2>
+            <h2>Menu</h2>
             <ul>
                 <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
                 <li><a href="#" onclick="showSection('line-chart-section')">Line Chart</a></li>
@@ -18,15 +23,23 @@
                 <li><a href="#" onclick="showSection('doughnut-chart-section')">Doughnut Chart</a></li>
             </ul>
         </aside>
+
         <main>
-            <!-- Dashboard -->
             <section id="dashboard" class="section active">
-                <h1>Air Quality Monitoring Dashboard</h1>
-                <select id="countrySelector" onchange="fetchWAQIDataForCountry()">
-                    <option value="geo:48.8534;2.3488">Paris</option>
-                    <option value="geo:40.7128;-74.0060">New York</option>
-                    <option value="geo:35.6895;139.6917">Tokyo</option>
-                    <option value="geo:51.5074;-0.1278">London</option>
+                <h2>Dashboard</h2>
+                <select id="countrySelector" onchange="updateDashboardData()">
+                    <option value="BUSAN" selected>Busan</option>
+                    <option value="BERLIN">Berlin</option>
+                    <option value="KYOTO">Kyoto</option>
+                    <option value="LONDON">London</option>
+                    <option value="LOS_ANGELES">Los Angeles</option>
+                    <option value="MADRID">Madrid</option>
+                    <option value="MEXICO_CITY">Mexico City</option>
+                    <option value="OSAKA">Osaka</option>
+                    <option value="PARIS">Paris</option>
+                    <option value="SEOUL">Seoul</option>
+                    <option value="SHANGHAI">Shanghai</option>
+                    <option value="TOKYO">Tokyo</option>
                 </select>
                 <div class="data-grid">
                     <div class="data-card">Temperature (°C): <span id="temperature">N/A</span></div>
@@ -40,25 +53,72 @@
                 </div>
             </section>
 
-            <!-- Line Chart -->
             <section id="line-chart-section" class="section">
-                <h1>Line Chart: Air Quality Trends</h1>
-                <canvas id="lineChart"></canvas>
+                <h2>Line Chart: Air Quality Trends</h2>
+                <select id="lineChartCitySelector" onchange="updateLineChart()">
+                    <option value="BUSAN">Busan</option>
+                    <option value="BERLIN">Berlin</option>
+                    <option value="KYOTO">Kyoto</option>
+                    <option value="LONDON">London</option>
+                    <option value="LOS_ANGELES">Los Angeles</option>
+                    <option value="MADRID">Madrid</option>
+                    <option value="MEXICO_CITY">Mexico City</option>
+                    <option value="OSAKA">Osaka</option>
+                    <option value="PARIS">Paris</option>
+                    <option value="SEOUL">Seoul</option>
+                    <option value="SHANGHAI">Shanghai</option>
+                    <option value="TOKYO">Tokyo</option>
+                </select>
+                <div class="chart-container">
+                    <canvas id="lineChart"></canvas>
+                </div>
             </section>
 
-            <!-- Bar Chart -->
             <section id="bar-chart-section" class="section">
-                <h1>Bar Chart: Pollutant Levels</h1>
-                <canvas id="barChart"></canvas>
+                <h2>Bar Chart: Pollutant Levels</h2>
+                <select id="barChartCitySelector" onchange="updateBarChart()">
+                    <option value="BUSAN">Busan</option>
+                    <option value="BERLIN">Berlin</option>
+                    <option value="KYOTO">Kyoto</option>
+                    <option value="LONDON">London</option>
+                    <option value="LOS_ANGELES">Los Angeles</option>
+                    <option value="MADRID">Madrid</option>
+                    <option value="MEXICO_CITY">Mexico City</option>
+                    <option value="OSAKA">Osaka</option>
+                    <option value="PARIS">Paris</option>
+                    <option value="SEOUL">Seoul</option>
+                    <option value="SHANGHAI">Shanghai</option>
+                    <option value="TOKYO">Tokyo</option>
+                </select>
+                <div class="chart-container">
+                    <canvas id="barChart"></canvas>
+                </div>
             </section>
 
-            <!-- Doughnut Chart -->
             <section id="doughnut-chart-section" class="section">
-                <h1>Doughnut Chart: Pollutant Distribution</h1>
-                <canvas id="doughnutChart"></canvas>
+                <h2>Doughnut Chart: Pollutant Distribution</h2>
+                <select id="doughnutChartCitySelector" onchange="updateDoughnutChart()">
+                    <option value="BUSAN">Busan</option>
+                    <option value="BERLIN">Berlin</option>
+                    <option value="KYOTO">Kyoto</option>
+                    <option value="LONDON">London</option>
+                    <option value="LOS_ANGELES">Los Angeles</option>
+                    <option value="MADRID">Madrid</option>
+                    <option value="MEXICO_CITY">Mexico City</option>
+                    <option value="OSAKA">Osaka</option>
+                    <option value="PARIS">Paris</option>
+                    <option value="SEOUL">Seoul</option>
+                    <option value="SHANGHAI">Shanghai</option>
+                    <option value="TOKYO">Tokyo</option>
+                </select>
+                <div class="chart-container">
+                    <canvas id="doughnutChart"></canvas>
+                </div>
             </section>
         </main>
     </div>
-    <script src="script.js"></script>
+    <footer>
+        <p>&copy; 2024 Air Quality Monitoring Dashboard. All rights reserved.</p>
+    </footer>
 </body>
 </html>
