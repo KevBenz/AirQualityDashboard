@@ -101,5 +101,6 @@ o	Fetching real-time data from WAQI API.
 o	Processing and visualizing data using Chart.js.
 ________________________________________
 Conclusion
+
 The Air Quality Monitoring Dashboard offers an intuitive and informative platform for tracking air quality across cities. While the project faced challenges with API limitations and manual data compilation, it successfully delivers actionable insights through its dynamic features and charts. Future updates will focus on automating data collection, improving responsiveness, and expanding city coverage to enhance its functionality and user experience.
 
