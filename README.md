@@ -9,11 +9,11 @@ Core Functionalities
 Displays pollutant levels and environmental metrics for selected cities:
 Pollutants: PM2.5, PM10, CO, NO2, Ozone (O3), SO2.
 Environmental Metrics: Temperature (°C), Humidity (%).
-3.	Interactive Charts:
+2.	Interactive Charts:
 Line Chart: Visualizes pollutant trends over time using monthly data for 2024.
 Bar Chart: Compares average pollutant levels for a selected city.
 Doughnut Chart: Highlights pollutant distribution for the selected city.
-4.  Dynamic City Selection:
+3.  Dynamic City Selection:
 Users can switch between cities via a dropdown menu to view real-time data and historical trends seamlessly.
 ________________________________________
 Data Sources
