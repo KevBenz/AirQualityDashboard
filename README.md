@@ -37,30 +37,30 @@ Data Handling
 ________________________________________
 Development Workflow
 1.	Initial Setup:
-o	Designed a clean, responsive user interface using HTML and CSS.
-o	Integrated Chart.js to support dynamic data visualization.
+Designed a clean, responsive user interface using HTML and CSS.
+Integrated Chart.js to support dynamic data visualization.
 2.	API Integration:
-o	Successfully connected to the WAQI API to fetch real-time pollutant data.
-o	Implemented mechanisms to handle API rate limits and ensure efficient data fetching.
+Successfully connected to the WAQI API to fetch real-time pollutant data.
+Implemented mechanisms to handle API rate limits and ensure efficient data fetching.
 3.	Historical Data Compilation:
-o	Extracted monthly pollutant data for 2024 manually.
-o	Computed average concentrations for pollutants to populate charts.
+Extracted monthly pollutant data for 2024 manually.
+Computed average concentrations for pollutants to populate charts.
 4.	Data Visualization:
-o	Built interactive charts:
-	Line Chart: Displays pollutant trends for 2024.
-	Bar Chart: Summarizes average pollutant levels in a city.
-	Doughnut Chart: Visualizes pollutant distribution within a city.
+Built interactive charts:
+Line Chart: Displays pollutant trends for 2024.
+Bar Chart: Summarizes average pollutant levels in a city.
+Doughnut Chart: Visualizes pollutant distribution within a city.
 ________________________________________
 Challenges and Solutions
 1.	API Limitations:
-o	Challenge: Historical data was not available through the WAQI API.
-o	Solution: Manually compiled monthly data points for 2024.
+Challenge: Historical data was not available through the WAQI API.
+Solution: Manually compiled monthly data points for 2024.
 2.	Incomplete Data:
-o	Challenge: Missing data for certain pollutants in some cities.
-o	Solution: Filtered out incomplete records and used averages to fill gaps where possible.
+Challenge: Missing data for certain pollutants in some cities.
+Solution: Filtered out incomplete records and used averages to fill gaps where possible.
 3.	Dynamic City Selection:
-o	Challenge: Ensuring seamless updates to charts when switching cities.
-o	Solution: Implemented an event-driven system to update charts dynamically based on user selection.
+Challenge: Ensuring seamless updates to charts when switching cities.
+Solution: Implemented an event-driven system to update charts dynamically based on user selection.
 ________________________________________
 Successes
 1.	Successfully integrated the WAQI API for real-time pollutant data.
@@ -75,30 +75,30 @@ Failures and Lessons Learned
 ________________________________________
 Future Improvements
 1.	Backend Integration:
-o	Develop a backend server to automate historical data storage and retrieval.
+Develop a backend server to automate historical data storage and retrieval.
 2.	Expanded Data Sources:
-o	Request extended WAQI API access or integrate additional APIs to enrich datasets.
+Request extended WAQI API access or integrate additional APIs to enrich datasets.
 3.	Mobile Optimization:
-o	Enhance dashboard responsiveness for a better user experience on smartphones and tablets.
+Enhance dashboard responsiveness for a better user experience on smartphones and tablets.
 4.	Global City Coverage:
-o	Add more cities and implement error handling for incomplete data.
+Add more cities and implement error handling for incomplete data.
 5.	Advanced Visualizations:
-o	Include scatter plots and heatmaps to provide deeper insights into pollutant distribution.
+Include scatter plots and heatmaps to provide deeper insights into pollutant distribution.
 ________________________________________
 How to Use
 1.	Open the Dashboard:
-o	Open index.html in any modern web browser.
+Open index.html in any modern web browser.
 2.	Explore Features:
-o	Select a city from the dropdown menu to:
-	View real-time pollutant levels and environmental metrics.
-	Analyze historical trends using line, bar, and doughnut charts.
+Select a city from the dropdown menu to:
+View real-time pollutant levels and environmental metrics.
+Analyze historical trends using line, bar, and doughnut charts.
 ________________________________________
 Project Files
 1.	index.html: Contains the main structure of the dashboard.
 2.	styles.css: Includes all the styling for the user interface.
 3.	script.js: Contains JavaScript code for:
-o	Fetching real-time data from WAQI API.
-o	Processing and visualizing data using Chart.js.
+Fetching real-time data from WAQI API.
+Processing and visualizing data using Chart.js.
 ________________________________________
 Conclusion
 
